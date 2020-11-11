@@ -3,7 +3,7 @@ cock_sql - MySQL and SQLite in Pawn
 
 ## Natives
 ```pawn
-native cock_log(E_LOGLEVEL:loglevel = ERROR | WARNING) = mysql_log;
+native cock_log(E_LOGLEVEL:loglevel = ERROR | WARNING);
 native CockSQL:cock_connect(const host[], const user[], const password[], const database[], CockSQLOpt:option_id = CockSQLOpt:0);
 native CockSQL:cock_connect_file(const file_name[] = "cocksql.ini");
 native cock_close(CockSQL:handle = COCKSQL_DEFAULT_HANDLE);
@@ -15,7 +15,7 @@ native cock_pquery(CockSQL:handle, const query[], const callback[] = "", const f
 native cock_tquery(CockSQL:handle, const query[], const callback[] = "", const format[] = "", {Float, _}...);
 native Cockhe:cock_query(CockSQL:handle, const query[], bool:use_cache = true);	
 native cock_tquery_file(CockSQL:handle, const file_path[], const callback[] = "", const format[] = "", {Float,_}:...);
-native Cockhe:cock_query_file(CockSQL:handle, const file_path[], bool:use_cache = false) = mysql_query_file;
+native Cockhe:cock_query_file(CockSQL:handle, const file_path[], bool:use_cache = false);
 
 native cock_errno(CockSQL:handle = COCKSQL_DEFAULT_HANDLE);
 native cock_error(const destination[], max_len = sizeof(destination), CockSQL:handle = COCKSQL_DEFAULT_HANDLE);
