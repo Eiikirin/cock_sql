@@ -66,12 +66,10 @@ native cocklite_next_row(CockDBResult::dbresult);
 native cocklite_num_rows(CockDBResult::dbresult);
 native cocklite_num_fields(CockDBResult::dbresult);
 
-native cocklite_get_field(CockDBResult::result, field, result[], maxlength = sizeof result);
-native cocklite_get_field_int(CockDBResult::result, field = 0);
-native cocklite_get_field_float(CockDBResult::result, field = 0);
-native bool:cocklite_get_field_bool(CockDBResult::result, field = 0);
-native cocklite_get_field_assoc(CockDBResult::result, const field[], result[], maxlength = sizeof result);
-native cocklite_get_field_assoc_int(CockDBResult::result, const field[]);
-native cocklite_get_field_assoc_float(CockDBResult::result, const field[]);
-native bool:cocklite_get_field_assoc_bool(CockDBResult::result, const field[]);
+native cocklite_get_field(CockDBResult:result, field, result[], maxlength = sizeof result);
+native cocklite_get_field_int(CockDBResult:result, field = 0);
+native cocklite_get_field_float(CockDBResult:result, field = 0);
+native cocklite_get_field_assoc(CockDBResult:result, const field[], result[], maxlength = sizeof result);
+native cocklite_get_field_assoc_int(CockDBResult:result, const field[]);
+native cocklite_get_field_assoc_float(CockDBResult:result, const field[]);
 ```
