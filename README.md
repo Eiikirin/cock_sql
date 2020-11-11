@@ -1,5 +1,22 @@
 # cock_sql
-cock_sql - MySQL and SQLite in Pawn
+
+[![sampctl](https://img.shields.io/badge/sampctl-cock_sql-2f2f2f.svg?style=for-the-badge)](https://github.com/Se8870/cock_sql)
+
+A forked MySQL and SQLite in Pawn originally by leHeix
+
+## Installation
+
+Simply install to your project:
+
+```bash
+sampctl package install Se8870/cock_sql
+```
+
+Include in your code and begin using the library:
+
+```pawn
+#include <cock_sql>
+```
 
 ## Natives
 ```pawn
@@ -29,7 +46,7 @@ native cockhe_get_row_count(&destination);
 native cockhe_get_field_count(&destination);
 native cockhe_get_result_count(&destination);
 native cockhe_get_field_name(field_index, destination[], max_len = sizeof(destination));
-native E_MYSQL_FIELD_TYPE:cockhe_get_field_type(field_index);
+native E_COCK_FIELD_TYPE:cockhe_get_field_type(field_index);
 native cockhe_set_result(result_index);
 
 native cockhe_get_value_index(row_idx, column_idx, destination[], max_len = sizeof(destination));
@@ -62,9 +79,9 @@ native CockDB:cocklite_open(const name[]);
 native cocklite_close(CockDB:db);
 native cocklite_query(CockDB:db, const query[]);
 native cocklite_free_result(CBResult:dbresult);
-native cocklite_next_row(CockDBResult::dbresult);
-native cocklite_num_rows(CockDBResult::dbresult);
-native cocklite_num_fields(CockDBResult::dbresult);
+native cocklite_next_row(CockDBResult:dbresult);
+native cocklite_num_rows(CockDBResult:dbresult);
+native cocklite_num_fields(CockDBResult:dbresult);
 
 native cocklite_get_field(CockDBResult:result, field, result[], maxlength = sizeof result);
 native cocklite_get_field_int(CockDBResult:result, field = 0);
