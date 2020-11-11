@@ -11,6 +11,7 @@
 	#define CockSQLOpt: MySQLOpt:
     #define E_COCK_GLOBAL_OPTION: E_MYSQL_GLOBAL_OPTION:
     #define E_COCK_EXECTIME_UNIT: E_MYSQL_EXECTIME_UNIT:
+    #define E_COCK_FIELD_TYPE: E_MYSQL_FIELD_TYPE:
 
     #define COCKSQL_DEFAULT_HANDLE  MYSQL_DEFAULT_HANDLE
 	#define COCKSQL_INVALID_HANDLE  MYSQL_INVALID_HANDLE    
@@ -26,8 +27,8 @@
     native cock_unprocessed_queries(CockSQL:handle = COCKSQL_DEFAULT_HANDLE) = mysql_unprocessed_queries;
     native cock_global_options(E_COCK_GLOBAL_OPTION:type, value) = mysql_global_options;
 
-	native cock_pquery(CockSQL:handle, const query[], const callback[] = "", const format[] = "", {Float, _}...) = mysql_pquery;
-    native cock_tquery(CockSQL:handle, const query[], const callback[] = "", const format[] = "", {Float, _}...) = mysql_tquery;
+	native cock_pquery(CockSQL:handle, const query[], const callback[] = "", const format[] = "", {Float, _}:...) = mysql_pquery;
+    native cock_tquery(CockSQL:handle, const query[], const callback[] = "", const format[] = "", {Float, _}:...) = mysql_tquery;
     native Cockhe:cock_query(CockSQL:handle, const query[], bool:use_cache = true) = mysql_query;	
     native cock_tquery_file(CockSQL:handle, const file_path[], const callback[] = "", const format[] = "", {Float,_}:...) = mysql_tquery_file;
     native Cockhe:cock_query_file(CockSQL:handle, const file_path[], bool:use_cache = false) = mysql_query_file;
@@ -45,7 +46,7 @@
     native cockhe_get_field_count(&destination) = cache_get_field_count;
     native cockhe_get_result_count(&destination) = cache_get_result_count;
     native cockhe_get_field_name(field_index, destination[], max_len = sizeof(destination)) = cache_get_field_name;
-    native E_MYSQL_FIELD_TYPE:cockhe_get_field_type(field_index) = cache_get_field_type;
+    native E_COCK_FIELD_TYPE:cockhe_get_field_type(field_index) = cache_get_field_type;
     native cockhe_set_result(result_index) = cache_set_result;
 
     stock cockhe_num_rows()
@@ -114,16 +115,25 @@
 native CockDB:cocklite_open(const name[]) = db_open;
 native cocklite_close(CockDB:db) = db_close;
 native cocklite_query(CockDB:db, const query[]) = db_query;
-native cocklite_free_result(CBResult:dbresult) = db_free_result;
+native cocklite_free_result(CockBResult:dbresult) = db_free_result;
 native cocklite_next_row(CockDBResult:dbresult) = db_next_row;
 native cocklite_num_rows(CockDBResult:dbresult) = db_num_rows;
 native cocklite_num_fields(CockDBResult:dbresult) = db_num_fields;
 
-native cocklite_get_field(CockDBResult:result, field, result[], maxlength = sizeof result) = db_get_field;
-native cocklite_get_field_int(CockDBResult:result, field = 0) = db_get_field_int;
-native cocklite_get_field_float(CockDBResult:result, field = 0) = db_get_field_float;
-native bool:cocklite_get_field_bool(CockDBResult:result, field = 0) = bool:db_get_field_int;
-native cocklite_get_field_assoc(CockDBResult:result, const field[], result[], maxlength = sizeof result) = db_get_field_assoc;
-native cocklite_get_field_assoc_int(CockDBResult:result, const field[]) = db_get_field_assoc_int;
-native cocklite_get_field_assoc_float(CockDBResult:result, const field[]) = db_get_field_assoc_float;
-native bool:cocklite_get_field_assoc_bool(CockDBResult:result, const field[]) = bool:db_get_field_assoc_int;
+native cocklite_get_field(CockDBResult:dbresult, field, result[], maxlength = sizeof result) = db_get_field;
+native cocklite_get_field_int(CockDBResult:dbresult, field = 0) = db_get_field_int;
+native cocklite_get_field_float(CockDBResult:dbresult, field = 0) = db_get_field_float;
+
+stock bool:cocklite_get_field_bool(CockDBResult:dbresult, field = 0) 
+{
+    return cocklite_get_field_int(dbresult, field);
+}
+
+native cocklite_get_field_assoc(CockDBResult:dbresult, const field[], result[], maxlength = sizeof result) = db_get_field_assoc;
+native cocklite_get_field_assoc_int(CockDBResult:dbresult, const field[]) = db_get_field_assoc_int;
+native cocklite_get_field_assoc_float(CockDBResult:dbresult, const field[]) = db_get_field_assoc_float;
+
+stock bool:cocklite_get_field_assoc_bool(CockDBResult:dbresult, const field[]) 
+{
+    return cocklite_get_field_assoc_int(dbresult, field);
+}
