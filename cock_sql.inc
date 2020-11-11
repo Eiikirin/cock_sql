@@ -41,12 +41,12 @@
     native cock_stat(destination[], max_len = sizeof(destination), CockSQL:handle = COCKSQL_DEFAULT_HANDLE) = mysql_stat;
 
     // Cockhe functions
-    native cockhe_get_row_count(&destination);
-    native cockhe_get_field_count(&destination);
-    native cockhe_get_result_count(&destination);
-    native cockhe_get_field_name(field_index, destination[], max_len = sizeof(destination));
-    native E_MYSQL_FIELD_TYPE:cockhe_get_field_type(field_index);
-    native cockhe_set_result(result_index);
+    native cockhe_get_row_count(&destination) = cache_get_row_count;
+    native cockhe_get_field_count(&destination) = cache_get_field_count;
+    native cockhe_get_result_count(&destination) = cache_get_result_count;
+    native cockhe_get_field_name(field_index, destination[], max_len = sizeof(destination)) = cache_get_field_name;
+    native E_MYSQL_FIELD_TYPE:cockhe_get_field_type(field_index) = cache_get_field_type;
+    native cockhe_set_result(result_index) = cache_set_result;
 
     stock cockhe_num_rows()
     {
@@ -109,21 +109,21 @@
 #endif
 
 #define CockDB: DB:
-#define CDBResult: DBResult:
+#define CockDBResult: DBResult:
 
 native CockDB:cocklite_open(const name[]) = db_open;
 native cocklite_close(CockDB:db) = db_close;
 native cocklite_query(CockDB:db, const query[]) = db_query;
 native cocklite_free_result(CBResult:dbresult) = db_free_result;
-native cocklite_next_row(CDBResult:dbresult) = db_next_row;
-native cocklite_num_rows(CDBResult:dbresult) = db_num_rows;
-native cocklite_num_fields(CDBResult:dbresult) = db_num_fields;
+native cocklite_next_row(CockDBResult::dbresult) = db_next_row;
+native cocklite_num_rows(CockDBResult::dbresult) = db_num_rows;
+native cocklite_num_fields(CockDBResult::dbresult) = db_num_fields;
 
-native cocklite_get_field(CDBResult:result, field, result[], maxlength = sizeof result) = db_get_field;
-native cocklite_get_field_int(CDBResult:result, field = 0) = db_get_field_int;
-native cocklite_get_field_float(CDBResult:result, field = 0) = db_get_field_float;
-native bool:cocklite_get_field_bool(CDBResult:result, field = 0) = bool:db_get_field_int;
-native cocklite_get_field_assoc(CDBResult:result, const field[], result[], maxlength = sizeof result) = db_get_field_assoc;
-native cocklite_get_field_assoc_int(CDBResult:result, const field[]) = db_get_field_assoc_int;
-native cocklite_get_field_assoc_float(CDBResult:result, const field[]) = db_get_field_assoc_float;
-native bool:cocklite_get_field_assoc_bool(CDBResult:result, const field[]) = bool:db_get_field_assoc_int;
+native cocklite_get_field(CockDBResult::result, field, result[], maxlength = sizeof result) = db_get_field;
+native cocklite_get_field_int(CockDBResult::result, field = 0) = db_get_field_int;
+native cocklite_get_field_float(CockDBResult::result, field = 0) = db_get_field_float;
+native bool:cocklite_get_field_bool(CockDBResult::result, field = 0) = bool:db_get_field_int;
+native cocklite_get_field_assoc(CockDBResult::result, const field[], result[], maxlength = sizeof result) = db_get_field_assoc;
+native cocklite_get_field_assoc_int(CockDBResult::result, const field[]) = db_get_field_assoc_int;
+native cocklite_get_field_assoc_float(CockDBResult::result, const field[]) = db_get_field_assoc_float;
+native bool:cocklite_get_field_assoc_bool(CockDBResult::result, const field[]) = bool:db_get_field_assoc_int;
