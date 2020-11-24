@@ -9,7 +9,7 @@ A forked MySQL and SQLite in Pawn originally by leHeix
 Simply install to your project:
 
 ```bash
-sampctl package install Se8870/cock_sql
+sampctl package install Eiikirin/cock_sql
 ```
 
 Include in your code and begin using the library:
